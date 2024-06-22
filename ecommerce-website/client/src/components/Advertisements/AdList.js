@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Container, Card, Row, Col, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
-import {jwtDecode} from 'jwt-decode';
+    import {jwtDecode} from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Import SweetAlert
 
@@ -42,18 +42,10 @@ const AdList = () => {
                         }
                     });
                     setAds(ads.filter(ad => ad._id !== id));
-                    Swal.fire(
-                        'Deleted!',
-                        'Your advertisement has been deleted.',
-                        'success'
-                    );
+                    Swal.fire('Deleted!', 'Your advertisement has been deleted.', 'success');
                 } catch (err) {
                     console.error(err.response.data);
-                    Swal.fire(
-                        'Error!',
-                        'There was an error deleting your advertisement.',
-                        'error'
-                    );
+                    Swal.fire('Error!', 'There was an error deleting your advertisement.', 'error');
                 }
             }
         });
@@ -64,33 +56,34 @@ const AdList = () => {
     };
 
     return (
-        <Container>
-            <h2>Advertisements</h2>
-            <Row>
-                {ads.map(ad => (
-                    <Col key={ad._id} sm={12} md={6} lg={4} xl={3}>
-                        <Card className="my-3 p-3 rounded">
-                            <Card.Body>
-                                <Card.Title>{ad.title}</Card.Title>
-                                <Card.Text>{ad.description}</Card.Text>
-                                <Card.Text>
-                                    <strong>Category: </strong>{ad.category}
-                                </Card.Text>
-                                <Card.Text>
-                                    <strong>Posted by: </strong>{ad.user.name}
-                                </Card.Text>
-                                {isAuthenticated && ad.user._id === jwtDecode(token).user.id && (
-                                    <>
-                                        <Button variant="warning" onClick={() => handleEdit(ad._id)}>Edit</Button>
-                                        <Button variant="danger" onClick={() => handleDelete(ad._id)}>Delete</Button>
-                                    </>
-                                )}
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                ))}
-            </Row>
-        </Container>
+        <Row>
+            {ads.map(ad => (
+                <Col key={ad._id} sm={12} md={6} lg={4} xl={3}>
+                    <Card className="my-3 p-3 rounded shadow-sm">
+                        <Card.Img variant="top" src="https://img.freepik.com/free-vector/facebook-influencer-background_23-2147821806.jpg?t=st=1719080568~exp=1719084168~hmac=aec78317f7e4fe9e7d1f95f04ec087edc86e7777a3705d464f44862fbc24a515&w=826" alt="Ad image" />
+                        <Card.Body>
+                            <Card.Title>{ad.title}</Card.Title>
+                            <Card.Text>{ad.description}</Card.Text>
+                            <Card.Text>
+                                <strong>Category: </strong>{ad.category}
+                            </Card.Text>
+                            <Card.Text>
+                                <strong>Contact: </strong>{ad.mobile} {/* Display mobile number */}
+                            </Card.Text>
+                            <Card.Text>
+                                <strong>Posted by: </strong>{ad.user.name}
+                            </Card.Text>
+                            {isAuthenticated && ad.user._id === jwtDecode(token).user.id && (
+                                <>
+                                    <Button variant="warning" onClick={() => handleEdit(ad._id)}>Edit</Button>{' '}
+                                    <Button variant="danger" onClick={() => handleDelete(ad._id)}>Delete</Button>
+                                </>
+                            )}
+                        </Card.Body>
+                    </Card>
+                </Col>
+            ))}
+        </Row>
     );
 };
 

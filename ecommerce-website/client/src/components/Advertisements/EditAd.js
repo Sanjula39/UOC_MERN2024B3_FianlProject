@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { useParams, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'; // Import SweetAlert
+import Swal from 'sweetalert2';
+import { FaBullhorn, FaTags, FaPencilAlt, FaPhone } from 'react-icons/fa';
 
 const EditAd = () => {
     const { id } = useParams();
@@ -11,6 +12,7 @@ const EditAd = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
+    
     const [error, setError] = useState(null);
     const { isAuthenticated } = useContext(AuthContext);
     const token = localStorage.getItem('token');
@@ -23,6 +25,7 @@ const EditAd = () => {
                 setTitle(ad.title);
                 setDescription(ad.description);
                 setCategory(ad.category);
+               
             } catch (err) {
                 console.error(err.response ? err.response.data : err.message);
             }
@@ -66,11 +69,11 @@ const EditAd = () => {
 
     return (
         <Container>
-            <h2>Edit Advertisement</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <h2 className="text-center my-4">Edit Advertisement</h2>
+            {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formBasicTitle">
-                    <Form.Label>Title</Form.Label>
+                    <Form.Label><FaBullhorn /> Title</Form.Label>
                     <Form.Control 
                         type="text" 
                         placeholder="Enter title" 
@@ -80,9 +83,10 @@ const EditAd = () => {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicDescription">
-                    <Form.Label>Description</Form.Label>
+                    <Form.Label><FaPencilAlt /> Description</Form.Label>
                     <Form.Control 
-                        type="text" 
+                        as="textarea" 
+                        rows={3} 
                         placeholder="Enter description" 
                         value={description} 
                         onChange={(e) => setDescription(e.target.value)} 
@@ -90,7 +94,7 @@ const EditAd = () => {
                 </Form.Group>
 
                 <Form.Group controlId="formBasicCategory">
-                    <Form.Label>Category</Form.Label>
+                    <Form.Label><FaTags /> Category</Form.Label>
                     <Form.Control 
                         type="text" 
                         placeholder="Enter category" 
@@ -99,7 +103,7 @@ const EditAd = () => {
                     />
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className="mt-3">
                     Update
                 </Button>
             </Form>
