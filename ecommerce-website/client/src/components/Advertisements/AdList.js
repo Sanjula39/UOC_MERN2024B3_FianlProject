@@ -67,9 +67,7 @@ const AdList = () => {
                             <Card.Text>
                                 <strong>Category: </strong>{ad.category}
                             </Card.Text>
-                            <Card.Text>
-                                <strong>Contact: </strong>{ad.mobile} {/* Display mobile number */}
-                            </Card.Text>
+                           
                             <Card.Text>
                                 <strong>Posted by: </strong>{ad.user.name}
                             </Card.Text>

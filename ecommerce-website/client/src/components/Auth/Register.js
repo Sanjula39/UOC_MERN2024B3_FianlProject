@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaLock, FaImage } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
 import { BsPersonCircle } from 'react-icons/bs';
+import './Login.css'; // Import the CSS file
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -34,31 +35,33 @@ const Register = () => {
     };
 
     return (
-        <Container className="d-flex flex-column align-items-center">
-            <BsPersonCircle size={100} className="mb-3" />
-            <h2 className="text-center mb-4">Register</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit} className="w-50">
-                <Form.Group controlId="formBasicName">
-                    <Form.Label><FaUser /> Name</Form.Label>
-                    <Form.Control type="text" placeholder="Enter name" value={name} onChange={(e) => setName(e.target.value)} />
-                </Form.Group>
+        <div className="bg-image">
+            <Container className="bg-text">
+                <BsPersonCircle size={100} className="mb-3" />
+                <h2 className="text-center mb-4">Register</h2>
+                {error && <Alert variant="danger">{error}</Alert>}
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId="formBasicName">
+                        <Form.Label><FaUser /> Name</Form.Label>
+                        <Form.Control type="text" placeholder="Enter name" value={name} onChange={(e) => setName(e.target.value)} />
+                    </Form.Group>
 
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Label><FaEnvelope /> Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </Form.Group>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label><FaEnvelope /> Email address</Form.Label>
+                        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </Form.Group>
 
-                <Form.Group controlId="formBasicPassword">
-                    <Form.Label><FaLock /> Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </Form.Group>
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label><FaLock /> Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    </Form.Group>
 
-                <Button variant="primary" type="submit" className="mt-3 w-100">
-                    Register
-                </Button>
-            </Form>
-        </Container>
+                    <Button variant="primary" type="submit" className="mt-3 w-100">
+                        Register
+                    </Button>
+                </Form>
+            </Container>
+        </div>
     );
 };
 
